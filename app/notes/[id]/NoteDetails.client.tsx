@@ -5,18 +5,23 @@ import { fetchNoteById } from "@/lib/api";
 import css from "./NoteDetails.module.css";
 
 interface NoteDetailsClientProps {
-  id: number;
+  id: string;
 }
 
 export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
   const { data: note, isLoading, isError } = useQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
-    enabled: !!id,
+    refetchOnMount: false, 
   });
 
-  if (isLoading) return <p>Loading, please wait...</p>;
-  if (isError || !note) return <p>Something went wrong.</p>;
+  if (isLoading) {
+    return <p>Loading, please wait...</p>;
+  }
+
+  if (isError || !note) {
+    return <p>Something went wrong.</p>;
+  }
 
   return (
     <div className={css.container}>
@@ -25,9 +30,7 @@ export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
           <h2>{note.title}</h2>
         </div>
         <p className={css.content}>{note.content}</p>
-        <p className={css.date}>
-          Created: {new Date(note.createdAt).toLocaleDateString()}
-        </p>
+        <p className={css.date}>Created: {new Date(note.createdAt).toLocaleDateString()}</p>
       </div>
     </div>
   );

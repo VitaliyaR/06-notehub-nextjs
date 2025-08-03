@@ -7,14 +7,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <Header />
         <TanStackProvider>
+          <Header />
           <main>{children}</main>
+          <Footer />
         </TanStackProvider>
-        <Footer />
       </body>
     </html>
   );
 }
+
 
 

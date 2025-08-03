@@ -14,7 +14,6 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/Error/ErrorMessage";
 
-
 export default function NotesClient() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,12 +31,8 @@ export default function NotesClient() {
 
   const { data, isSuccess, isLoading, isError } = useQuery<NotesResponse>({
     queryKey: ["notes", searchQuery, currentPage],
-    queryFn: () =>
-      fetchNotes({
-        page: currentPage,
-        search: searchQuery.trim() || undefined,
-      }),
-    placeholderData: (prev) => prev, // аналог keepPreviousData
+    queryFn: () => fetchNotes({ page: currentPage, search: searchQuery.trim() || undefined }),
+    placeholderData: (prev) => prev,
   });
 
   const totalPages = data?.totalPages ?? 0;
