@@ -1,6 +1,12 @@
 import NoteDetailsClient from "./NoteDetails.client";
 
-export default function NoteDetailsPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function NoteDetailsPage({ params }: PageProps) {
   const noteId = Number(params.id);
 
   if (isNaN(noteId)) {
@@ -9,5 +15,4 @@ export default function NoteDetailsPage({ params }: { params: { id: string } }) 
 
   return <NoteDetailsClient id={noteId} />;
 }
-
 
