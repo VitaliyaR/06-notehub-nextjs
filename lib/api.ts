@@ -21,7 +21,7 @@ interface FetchNotesParams {
   perPage?: number;
 }
 
-// ✅ GET: All Notes with filters (search/tag/page)
+
 export async function fetchNotes({
   search = "",
   tag,
@@ -48,7 +48,7 @@ export async function fetchNotes({
   }
 }
 
-// ✅ GET: One note by ID
+
 export async function fetchNoteById(id: number): Promise<Note> {
   try {
     const response = await axios.get<Note>(`${API_URL}/notes/${id}`, {
@@ -64,7 +64,7 @@ export async function fetchNoteById(id: number): Promise<Note> {
   }
 }
 
-// ✅ POST: Create note
+
 export async function createNote(data: NewNoteData): Promise<Note> {
   try {
     const response = await axios.post<Note>(`${API_URL}/notes`, data, {
@@ -81,7 +81,6 @@ export async function createNote(data: NewNoteData): Promise<Note> {
   }
 }
 
-// ✅ DELETE: Remove note
 export async function deleteNote(noteId: number): Promise<Note> {
   try {
     const response = await axios.delete<Note>(`${API_URL}/notes/${noteId}`, {
