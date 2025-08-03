@@ -1,13 +1,8 @@
 import NoteDetailsClient from "./NoteDetails.client";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function NoteDetailsPage({ params }: PageProps) {
-  const noteId = Number(params.id);
+export default async function NoteDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const noteId = Number(id);
 
   if (isNaN(noteId)) {
     return <p>Invalid note ID</p>;
@@ -15,4 +10,3 @@ export default function NoteDetailsPage({ params }: PageProps) {
 
   return <NoteDetailsClient id={noteId} />;
 }
-
