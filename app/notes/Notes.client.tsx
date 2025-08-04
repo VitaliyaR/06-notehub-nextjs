@@ -14,7 +14,11 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/Error/ErrorMessage";
 
-export default function NotesClient() {
+interface NotesClientProps {
+  initialData?: NotesResponse;
+}
+
+export default function NotesClient({ initialData }: NotesClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
@@ -33,6 +37,7 @@ export default function NotesClient() {
     queryKey: ["notes", searchQuery, currentPage],
     queryFn: () => fetchNotes({ page: currentPage, search: searchQuery.trim() || undefined }),
     placeholderData: (prev) => prev,
+    initialData: currentPage === 1 && searchQuery === "" ? initialData : undefined,
   });
 
   const totalPages = data?.totalPages ?? 0;
@@ -64,3 +69,5 @@ export default function NotesClient() {
     </div>
   );
 }
+
+

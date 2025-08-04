@@ -2,17 +2,20 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
+import type { Note } from "@/types/note";
 import css from "./NoteDetails.module.css";
 
 interface NoteDetailsClientProps {
   id: string;
+  initialData?: Note;
 }
 
-export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
+export default function NoteDetailsClient({ id, initialData }: NoteDetailsClientProps) {
   const { data: note, isLoading, isError } = useQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
-    refetchOnMount: false, 
+    refetchOnMount: false,
+    initialData,
   });
 
   if (isLoading) {
@@ -35,3 +38,5 @@ export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
     </div>
   );
 }
+
+
