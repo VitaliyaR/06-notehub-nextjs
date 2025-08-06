@@ -66,3 +66,5 @@ export async function deleteNote(noteId: string): Promise<Note> {
   });
   return response.data;
 }
+
+
